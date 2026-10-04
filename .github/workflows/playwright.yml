@@ -1,0 +1,35 @@
+name: Playwright Enterprise CI Framework
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Initialize Cloud Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install Application Dependencies
+      run: npm install
+
+    - name: Initialize Isolated Playwright Browser Engines
+      run: npx playwright install --with-deps
+
+    - name: Execute Automated Test Suite
+      run: npx playwright test
+
+    - name: Archive Visual Execution Reports
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-html-report
+        path: playwright-report/
+        retention-days: 30
