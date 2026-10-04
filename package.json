@@ -1,0 +1,14 @@
+cat package.json
+{
+  "name": "french-tech-qa-portfolio",
+  "version": "1.0.0",
+  "description": "Enterprise Playwright E2E Testing Framework for French Tech Visa",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "typescript": "^5.0.0"
+  }
+}
